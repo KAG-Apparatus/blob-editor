@@ -1,2 +1,2 @@
-# bounding-box
-Bounding box editor for blobs
+# Blob Editor
+Editor for blobs
