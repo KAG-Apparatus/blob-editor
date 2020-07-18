@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"image"
 	_ "image/png"
+	"io/ioutil"
 	"log"
 
 	"github.com/KAG-Apparatus/bounding-box/resources/images"
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/font"
-	"golang.org/x/image/font/gofont/goregular"
 
 	"github.com/hajimehoshi/ebiten"
 )
@@ -25,22 +25,18 @@ var (
 )
 
 func init() {
-	// Decode image from a byte slice instead of a file so that
-	// this example works in any working directory.
-	// If you want to use a file, there are some options:
-	// 1) Use os.Open and pass the file to the image decoder.
-	//    This is a very regular way, but doesn't work on browsers.
-	// 2) Use ebitenutil.OpenFile and pass the file to the image decoder.
-	//    This works even on browsers.
-	// 3) Use ebitenutil.NewImageFromFile to create an ebiten.Image directly from a file.
-	//    This also works on browsers.
 	img, _, err := image.Decode(bytes.NewReader(images.UI_png))
 	if err != nil {
 		log.Fatal(err)
 	}
 	uiImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
 
-	tt, err := truetype.Parse(goregular.TTF)
+	bytes, err := ioutil.ReadFile("./resources/fonts/Roboto-Medium.ttf")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	tt, err := truetype.Parse(bytes)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,6 +45,7 @@ func init() {
 		DPI:     72,
 		Hinting: font.HintingFull,
 	})
+
 	b, _, _ := uiFont.GlyphBounds('M')
 	uiFontMHeight = (b.Max.Y - b.Min.Y).Ceil()
 }

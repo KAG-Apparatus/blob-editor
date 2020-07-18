@@ -50,7 +50,7 @@ func (b *Button) Draw(dst *ebiten.Image) {
 	w := (bounds.Max.X - bounds.Min.X).Ceil()
 	x := b.Rect.Min.X + (b.Rect.Dx()-w)/2
 	y := b.Rect.Max.Y - (b.Rect.Dy()-uiFontMHeight)/2
-	text.Draw(dst, b.Text, uiFont, x, y, color.Black)
+	text.Draw(dst, b.Text, uiFont, x, y, color.White)
 }
 
 // SetOnPressed specify which function to call when
