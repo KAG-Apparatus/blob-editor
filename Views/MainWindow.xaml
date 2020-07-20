@@ -38,9 +38,8 @@
                     <Panel Grid.Row="0" Grid.Column="0" Name="boundingBoxButtons">
                         <Border Padding="4">
                             <StackPanel Orientation="Vertical">
-                                <Button Width="60">Add point</Button>
-                                <Button Width="60">Delete point</Button>
-                                <Button Width="60">Exit</Button>
+                                <Button Width="60">Add</Button>
+                                <Button Width="60">Delete</Button>
                             </StackPanel>
                         </Border>
                     </Panel>
