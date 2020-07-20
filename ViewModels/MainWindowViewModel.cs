@@ -7,5 +7,6 @@ namespace Blob_Editor.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         public string Greeting => "Hello World!";
+        public string Status => "Everything ok.";
     }
 }
