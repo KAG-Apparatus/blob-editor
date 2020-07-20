@@ -3,10 +3,10 @@
         xmlns:vm="clr-namespace:Blob_Editor.ViewModels;assembly=Blob_Editor"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
         x:Class="Blob_Editor.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Blob_Editor">
+        Icon="/Assets/KAG-Apparatus.ico"
+        Title="KAG Apparatus: Blob Editor">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
