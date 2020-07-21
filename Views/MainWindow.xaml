@@ -1,121 +1,109 @@
 <Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Blob_Editor.ViewModels;assembly=Blob_Editor" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="Blob_Editor.Views.MainWindow" Icon="/Assets/avalonia-logo.ico" Title="Blob Editor">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="12*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" Grid.Column="0">
-            <TabItem Header="Properties" VerticalContentAlignment="Center">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="1.5*" />
-                    </Grid.ColumnDefinitions>
-                    <Panel Grid.Row="0" Grid.Column="0" Name="propertyButtons">
-                        <Border Padding="4">
-                            <StackPanel Orientation="Vertical">
-                                <Button Command="{Binding OnClickCommand}" Width="60">Open</Button>
-                                <Button Width="60">Save</Button>
-                                <Button Width="60">Exit</Button>
-                            </StackPanel>
-                        </Border>
-                    </Panel>
-                    <Panel Grid.Row="0" Grid.Column="1" Name="propertyArea">
-                    </Panel>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Bounding Box" VerticalContentAlignment="Center">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="1.5*" />
-                    </Grid.ColumnDefinitions>
-                    <Panel Grid.Row="0" Grid.Column="0" Name="boundingBoxButtons">
-                        <Border Padding="4">
-                            <StackPanel Orientation="Vertical">
-                                <Button Width="60">Add</Button>
-                                <Button Width="60">Delete</Button>
-                            </StackPanel>
-                        </Border>
-                    </Panel>
-                    <Panel Grid.Row="0" Grid.Column="1" Name="boundingBoxArea">
-                    </Panel>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="{Binding Status}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        </StackPanel>
-
-    </Grid>
-
-    <Window.Styles>
-
-        <Style Selector="Panel#boundingBoxButtons">
-            <Setter Property="Background" Value="#383847" />
-            <Setter Property="Margin" Value="0 -4 0 0" />
-        </Style>
-
-        <Style Selector="Panel#boundingBoxArea">
-            <Setter Property="Background" Value="#292932" />
-            <Setter Property="Margin" Value="0 -4 0 0" />
-        </Style>
-
-        <Style Selector="Panel#propertyButtons">
-            <Setter Property="Background" Value="#383847" />
-            <Setter Property="Margin" Value="0 -4 0 0" />
-        </Style>
-
-        <Style Selector="Panel#propertyArea">
-            <Setter Property="Background" Value="#292932" />
-            <Setter Property="Margin" Value="0 -4 0 0" />
-        </Style>
-
-        <Style Selector="TabControl">
-            <Setter Property="Background" Value="#383847" />
-        </Style>
-
-        <Style Selector="TabControl WrapPanel">
-            <Setter Property="Background" Value="#646490" />
-            <Setter Property="Margin" Value="100 0 0 0" />
-        </Style>
-
-        <Style Selector="TabItem">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Height" Value="34" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Background" Value="#646490" />
-            <Setter Property="Foreground" Value="#E6EFF1" />
-            <Setter Property="Margin" Value="0 0 0 0" />
-            <Setter Property="Padding" Value="10 0" />
-        </Style>
-        <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#515176" />
-        </Style>
-
-        <Style Selector="TabItem:focus">
-            <Setter Property="Foreground" Value="#646490" />
-            <Setter Property="Margin" Value="0 0 0 0" />
-            <Setter Property="Padding" Value="10 0" />
-        </Style>
-        <Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#292932" />
-        </Style>
-
-        <Style Selector="TabItem:selected">
-            <Setter Property="Foreground" Value="#E6EFF1" />
-            <Setter Property="Margin" Value="0 0 0 0" />
-            <Setter Property="Padding" Value="10 0" />
-			<Setter Property="FontWeight" Value="Bold" />
-        </Style>
-        <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#292932" />
-        </Style>
-
-    </Window.Styles>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="12*"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
+		<TabControl Grid.Row="0" Grid.Column="0">
+			<TabItem Header="Properties" VerticalContentAlignment="Center">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="1.5*"/>
+					</Grid.ColumnDefinitions>
+					<Panel Grid.Row="0" Grid.Column="0" Name="propertyButtons">
+						<StackPanel Orientation="Vertical">
+							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+								<Button Command="{Binding OnClickCommand}" Width="60" BorderThickness="2">Open</Button>
+							</Border>
+							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+								<Button Width="60" BorderThickness="2">Save</Button>
+							</Border>
+							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+								<Button Width="60" BorderThickness="2">Exit</Button>
+							</Border>
+						</StackPanel>
+					</Panel>
+					<Panel Grid.Row="0" Grid.Column="1" Name="propertyArea"></Panel>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Bounding Box" VerticalContentAlignment="Center">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="1.5*"/>
+					</Grid.ColumnDefinitions>
+					<Panel Grid.Row="0" Grid.Column="0" Name="boundingBoxButtons">
+						<Border Padding="4">
+							<StackPanel Orientation="Vertical">
+								<Button Width="60">Add</Button>
+								<Button Width="60">Delete</Button>
+							</StackPanel>
+						</Border>
+					</Panel>
+					<Panel Grid.Row="0" Grid.Column="1" Name="boundingBoxArea"></Panel>
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+			<TextBlock Text="{Binding Status}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+		</StackPanel>
+	</Grid>
+	<Window.Styles>
+		<Style Selector="Panel#boundingBoxButtons">
+			<Setter Property="Background" Value="#383847"/>
+			<Setter Property="Margin" Value="0 -4 0 0"/>
+		</Style>
+		<Style Selector="Panel#boundingBoxArea">
+			<Setter Property="Background" Value="#292932"/>
+			<Setter Property="Margin" Value="0 -4 0 0"/>
+		</Style>
+		<Style Selector="Panel#propertyButtons">
+			<Setter Property="Background" Value="#383847"/>
+			<Setter Property="Margin" Value="0 -4 0 0"/>
+		</Style>
+		<Style Selector="Panel#propertyArea">
+			<Setter Property="Background" Value="#292932"/>
+			<Setter Property="Margin" Value="0 -4 0 0"/>
+		</Style>
+		<Style Selector="TabControl">
+			<Setter Property="Background" Value="#383847"/>
+		</Style>
+		<Style Selector="TabControl WrapPanel">
+			<Setter Property="Background" Value="#646490"/>
+			<Setter Property="Margin" Value="100 0 0 0"/>
+		</Style>
+		<Style Selector="TabItem">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Height" Value="34"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Background" Value="#646490"/>
+			<Setter Property="Foreground" Value="#E6EFF1"/>
+			<Setter Property="Margin" Value="0 0 0 0"/>
+			<Setter Property="Padding" Value="10 0"/>
+		</Style>
+		<Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#515176"/>
+		</Style>
+		<Style Selector="TabItem:focus">
+			<Setter Property="Foreground" Value="#646490"/>
+			<Setter Property="Margin" Value="0 0 0 0"/>
+			<Setter Property="Padding" Value="10 0"/>
+		</Style>
+		<Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#292932"/>
+		</Style>
+		<Style Selector="TabItem:selected">
+			<Setter Property="Foreground" Value="#E6EFF1"/>
+			<Setter Property="Margin" Value="0 0 0 0"/>
+			<Setter Property="Padding" Value="10 0"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+		<Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#292932"/>
+		</Style>
+	</Window.Styles>
 </Window>
