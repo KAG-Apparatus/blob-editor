@@ -17,7 +17,7 @@
 					<Panel Grid.Row="0" Grid.Column="0" Name="propertyButtons">
 						<StackPanel Orientation="Vertical">
 							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
-								<Button Command="{Binding OnClickCommand}" Width="60" BorderThickness="2">Open</Button>
+								<Button Command="{Binding OnOpenClickCommand}" Width="60" BorderThickness="2">Open</Button>
 							</Border>
 							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
 								<Button Width="60" BorderThickness="2">Save</Button>
