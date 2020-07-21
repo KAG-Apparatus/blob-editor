@@ -57,31 +57,31 @@
     <Window.Styles>
 
         <Style Selector="Panel#boundingBoxButtons">
-            <Setter Property="Background" Value="#a59f9f" />
+            <Setter Property="Background" Value="#383847" />
             <Setter Property="Margin" Value="0 -4 0 0" />
         </Style>
 
         <Style Selector="Panel#boundingBoxArea">
-            <Setter Property="Background" Value="#F0F0F0" />
+            <Setter Property="Background" Value="#292932" />
             <Setter Property="Margin" Value="0 -4 0 0" />
         </Style>
 
         <Style Selector="Panel#propertyButtons">
-            <Setter Property="Background" Value="#a59f9f" />
+            <Setter Property="Background" Value="#383847" />
             <Setter Property="Margin" Value="0 -4 0 0" />
         </Style>
 
         <Style Selector="Panel#propertyArea">
-            <Setter Property="Background" Value="#F0F0F0" />
+            <Setter Property="Background" Value="#292932" />
             <Setter Property="Margin" Value="0 -4 0 0" />
         </Style>
 
         <Style Selector="TabControl">
-            <Setter Property="Background" Value="#a59f9f" />
+            <Setter Property="Background" Value="#383847" />
         </Style>
 
         <Style Selector="TabControl WrapPanel">
-            <Setter Property="Background" Value="#2B579A" />
+            <Setter Property="Background" Value="#646490" />
             <Setter Property="Margin" Value="100 0 0 0" />
         </Style>
 
@@ -89,31 +89,32 @@
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Height" Value="34" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Background" Value="#2B579A" />
-            <Setter Property="Foreground" Value="#F0F0F0" />
+            <Setter Property="Background" Value="#646490" />
+            <Setter Property="Foreground" Value="#E6EFF1" />
             <Setter Property="Margin" Value="0 0 0 0" />
             <Setter Property="Padding" Value="10 0" />
         </Style>
         <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#124078" />
+            <Setter Property="Background" Value="#515176" />
         </Style>
 
         <Style Selector="TabItem:focus">
-            <Setter Property="Foreground" Value="#2B579A" />
+            <Setter Property="Foreground" Value="#646490" />
             <Setter Property="Margin" Value="0 0 0 0" />
             <Setter Property="Padding" Value="10 0" />
         </Style>
         <Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#f0f0f0" />
+            <Setter Property="Background" Value="#292932" />
         </Style>
 
         <Style Selector="TabItem:selected">
-            <Setter Property="Foreground" Value="#2B579A" />
+            <Setter Property="Foreground" Value="#E6EFF1" />
             <Setter Property="Margin" Value="0 0 0 0" />
             <Setter Property="Padding" Value="10 0" />
+			<Setter Property="FontWeight" Value="Bold" />
         </Style>
         <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#f0f0f0" />
+            <Setter Property="Background" Value="#292932" />
         </Style>
 
     </Window.Styles>
