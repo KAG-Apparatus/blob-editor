@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Avalonia.Controls;
 using System.Collections.Generic;
-using System.Text;
-
+using System;
+using System.Threading.Tasks;
 namespace Blob_Editor.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
@@ -9,9 +9,36 @@ namespace Blob_Editor.ViewModels
         public string Greeting => "Hello World!";
         public string Status => "Everything ok.";
 
-        public void OnClickCommand()
+        public async void OnClickCommand()
         {
-            Console.WriteLine("Yaaay");
+			List<FileDialogFilter> filters = new List<FileDialogFilter>();
+			filters.Add( //create filter for cfg files
+				new FileDialogFilter()
+				{
+					Extensions = new List<string>(){"cfg"},
+					Name = "KAG Config File"
+				}
+			);
+
+            OpenFileDialog dialog = new OpenFileDialog()
+			{
+				AllowMultiple = false,
+				Filters = filters,
+				Title = "Open KAG Config File"
+			};
+
+			Task<string[]> task = dialog.ShowAsync(new Window());
+			await task;
+			string[] result = task.Result;
+			
+			
+			if(result.Length < 1)
+			{
+				Console.WriteLine("Dialog cancled");
+			} else
+			{
+				Console.WriteLine($"Dialog directory: {result[0]}");
+			}
         }
     }
 }
