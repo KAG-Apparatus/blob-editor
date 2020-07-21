@@ -19,7 +19,7 @@
                     <Panel Grid.Row="0" Grid.Column="0" Name="propertyButtons">
                         <Border Padding="4">
                             <StackPanel Orientation="Vertical">
-                                <Button Width="60">Open</Button>
+                                <Button Command="{Binding OnClickCommand}" Width="60">Open</Button>
                                 <Button Width="60">Save</Button>
                                 <Button Width="60">Exit</Button>
                             </StackPanel>

@@ -8,5 +8,10 @@ namespace Blob_Editor.ViewModels
     {
         public string Greeting => "Hello World!";
         public string Status => "Everything ok.";
+
+        public void OnClickCommand()
+        {
+            Console.WriteLine("Yaaay");
+        }
     }
 }
