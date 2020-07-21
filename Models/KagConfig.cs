@@ -7,9 +7,9 @@ namespace Blob_Editor
 {
     public class KagConfig
     {
-        private Stack<KeyValuePair<string, List<string>>> contents;
+        private List<KeyValuePair<string, List<string>>> contents;
 
-        public KagConfig(Stack<KeyValuePair<string, List<string>>> contents)
+        public KagConfig(List<KeyValuePair<string, List<string>>> contents)
         {
             this.contents = contents;
         }
@@ -19,7 +19,7 @@ namespace Blob_Editor
     {
         public static KagConfig Parse(string filepath)
         {
-            Stack<KeyValuePair<string, List<string>>> contents = new Stack<KeyValuePair<string, List<string>>>();
+            Stack<KeyValuePair<string, List<string>>> stackedContents = new Stack<KeyValuePair<string, List<string>>>();
             string pattern = @"(\@*\$*\w+)\ +=\ +(.*)";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             using (StreamReader reader = new StreamReader(filepath))
@@ -38,20 +38,20 @@ namespace Blob_Editor
                     {
                         entry = new KeyValuePair<string, List<string>>(
                             "VoidInLine" + lineNumber,
-                            new List<string>(new string[]{""})
+                            new List<string>(new string[] { "" })
                         );
-                        contents.Push(entry);
+                        stackedContents.Push(entry);
                         continue;
                     }
-                    
+
                     // Comment line
                     if (line[0] == '#')
                     {
                         entry = new KeyValuePair<string, List<string>>(
                             "CommentInLine" + lineNumber,
-                            new List<string>(new string[]{line})
+                            new List<string>(new string[] { line })
                         );
-                        contents.Push(entry);
+                        stackedContents.Push(entry);
                         continue;
                     }
 
@@ -62,21 +62,37 @@ namespace Blob_Editor
                         string value = match.Groups[2].Captures[0].ToString();
                         entry = new KeyValuePair<string, List<string>>(
                             key,
-                            new List<string>(new string[]{value})
+                            new List<string>(new string[] { value })
                         );
-                        contents.Push(entry);
+                        stackedContents.Push(entry);
                         match = match.NextMatch();
+                    }
+                    // Empty entry
+                    else if (line.Contains('='))
+                    {
+                        string key = line.Replace('=', '\0').Trim();
+                        entry = new KeyValuePair<string, List<string>>(
+                            key,
+                            new List<string>(new string[] { "" })
+                        );
+                        stackedContents.Push(entry);
                     }
                     else
                     {
-                        entry = contents.Pop();
+                        entry = stackedContents.Pop();
                         entry.Value.Add(line);
-                        contents.Push(entry);
+                        stackedContents.Push(entry);
                     }
                 }
             }
 
-            foreach (KeyValuePair<string, List<string>> entry in contents)
+            List<KeyValuePair<string, List<string>>> listedContents = new List<KeyValuePair<string, List<string>>>();
+            foreach (KeyValuePair<string, List<string>> entry in stackedContents)
+            {
+                listedContents.Add(entry);
+            }
+            listedContents.Reverse();
+            foreach (KeyValuePair<string, List<string>> entry in listedContents)
             {
                 Console.WriteLine("{0} =", entry.Key);
                 foreach (string value in entry.Value)
@@ -84,8 +100,7 @@ namespace Blob_Editor
                     Console.Write("\t{0}\n", value);
                 }
             }
-            
-            return new KagConfig(contents);
+            return new KagConfig(listedContents);
         }
     }
 }
