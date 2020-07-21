@@ -1,25 +1,44 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IO;
+using System;
 
 namespace Blob_Editor
 {
-	public class KagConfig
-	{
-		Dictionary<string,string> keyValuePairs = new Dictionary<string, string>();
+    public class KagConfig
+    {
+        private Dictionary<string, string[]> keyValuePairs;
 
-		KagConfig(string configRaw)
-		{
-			keyValuePairs = parse(configRaw);
-		}
+        public KagConfig(Dictionary<string, string[]> keyValuePairs)
+        {
+            this.keyValuePairs = keyValuePairs;
+        }
+    }
 
-		static Dictionary<string,string> parse(string configRaw)
-		{
-			Dictionary<string,string> keyValuePairs = new Dictionary<string, string>();
-
-			//Clean config file of whitespace.
-			string configNoWhiteSpace = Regex.Replace(configRaw,"( {2,})|(\t{2,})", "");
-
-			return keyValuePairs;
-		}
-	}
+    public class Parser
+    {
+        public static KagConfig Parse(string filepath)
+        {
+            Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>();
+            string pattern = @"(\@*\$*\w+)\ +=\ +(.*)";
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            using (StreamReader reader = new StreamReader(filepath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Match m = r.Match(line);
+                    while (m.Success)
+                    {
+						string key = m.Groups[1].Captures[0].ToString();
+						string value = m.Groups[2].Captures[0].ToString();
+                        Console.WriteLine("{0} = {1}", key, value);
+						dictionary.Add(key, new string[]{value});
+                        m = m.NextMatch();
+                    }
+                }
+            }
+            return new KagConfig(dictionary);
+        }
+    }
 }
