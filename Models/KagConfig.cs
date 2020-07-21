@@ -2,105 +2,91 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using System;
+using System.Text;
 
 namespace Blob_Editor
 {
     public class KagConfig
     {
-        private List<KeyValuePair<string, List<string>>> contents;
+        private List<Element> elements;
 
-        public KagConfig(List<KeyValuePair<string, List<string>>> contents)
+        public KagConfig(List<Element> elements)
         {
-            this.contents = contents;
+            this.Elements = elements;
         }
+
+        public List<Element> Elements { get => elements; set => elements = value; }
     }
 
     public class Parser
     {
         public static KagConfig Parse(string filepath)
         {
-            Stack<KeyValuePair<string, List<string>>> stackedContents = new Stack<KeyValuePair<string, List<string>>>();
-            string pattern = @"(\@*\$*\w+)\ +=\ +(.*)";
-            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            List<Element> contents = new List<Element>();
             using (StreamReader reader = new StreamReader(filepath))
             {
-                KeyValuePair<string, List<string>> entry;
-
                 string line;
                 int lineNumber = 0;
 
                 while ((line = reader.ReadLine()) != null)
                 {
                     lineNumber++;
-
-                    // Empty line
-                    if (line == "")
+                    LineType lineType = IdentifyLine(line);
+                    switch (lineType)
                     {
-                        entry = new KeyValuePair<string, List<string>>(
-                            "VoidInLine" + lineNumber,
-                            new List<string>(new string[] { "" })
-                        );
-                        stackedContents.Push(entry);
-                        continue;
-                    }
-
-                    // Comment line
-                    if (line[0] == '#')
-                    {
-                        entry = new KeyValuePair<string, List<string>>(
-                            "CommentInLine" + lineNumber,
-                            new List<string>(new string[] { line })
-                        );
-                        stackedContents.Push(entry);
-                        continue;
-                    }
-
-                    Match match = regex.Match(line);
-                    if (match.Success)
-                    {
-                        string key = match.Groups[1].Captures[0].ToString();
-                        string value = match.Groups[2].Captures[0].ToString();
-                        entry = new KeyValuePair<string, List<string>>(
-                            key,
-                            new List<string>(new string[] { value })
-                        );
-                        stackedContents.Push(entry);
-                        match = match.NextMatch();
-                    }
-                    // Empty entry
-                    else if (line.Contains('='))
-                    {
-                        string key = line.Replace('=', '\0').Trim();
-                        entry = new KeyValuePair<string, List<string>>(
-                            key,
-                            new List<string>(new string[] { "" })
-                        );
-                        stackedContents.Push(entry);
-                    }
-                    else
-                    {
-                        entry = stackedContents.Pop();
-                        entry.Value.Add(line);
-                        stackedContents.Push(entry);
+                        case LineType.Comment:
+                            contents.Add(new Comment(line));
+                            break;
+                        case LineType.RegularEntry:
+                            contents.Add(new Entry(line));
+                            break;
+                        case LineType.EmptyEntry:
+                            contents.Add(new Entry(line.Replace("=", "").Trim(), new List<string>()));
+                            break;
+                        case LineType.EmptyLine:
+                            contents.Add(new Empty());
+                            break;
+                        case LineType.AvulseEntry:
+                            if (contents.Count > 0)
+                            {
+                                Entry lastElement = (Entry)contents[contents.Count - 1];
+                                lastElement.Append(line);
+                                contents[contents.Count - 1] = (Element)lastElement;
+                            } else
+                            {
+                                throw new Exception("Invalid CFG file");
+                            }
+                            break;
                     }
                 }
             }
 
-            List<KeyValuePair<string, List<string>>> listedContents = new List<KeyValuePair<string, List<string>>>();
-            foreach (KeyValuePair<string, List<string>> entry in stackedContents)
+            return new KagConfig(contents);
+        }
+
+        public static LineType IdentifyLine(string line)
+        {
+            if (line == "" || line == null)
             {
-                listedContents.Add(entry);
+                return LineType.EmptyLine;
             }
-            listedContents.Reverse();
-            foreach (KeyValuePair<string, List<string>> entry in listedContents)
+
+            if (line[0] == '#')
             {
-                Console.WriteLine("{0} =", entry.Key);
-                foreach (string value in entry.Value)
-                {
-                    Console.Write("\t{0}\n", value);
-                }
+                return LineType.Comment;
             }
-            return new KagConfig(listedContents);
+
+            if (!line.Contains('='))
+            {
+                return LineType.AvulseEntry;
+            }
+
+            if (line.Trim().EndsWith('='))
+            {
+                return LineType.EmptyEntry;
+            }
+
+            return LineType.RegularEntry;
         }
     }
 }
