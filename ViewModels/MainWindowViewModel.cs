@@ -33,9 +33,9 @@ namespace Blob_Editor.ViewModels
 			string[] result = task.Result;
 			
 			
-			if(result.Length < 1)
+			if (result == null || result.Length != 1)
 			{
-				Console.WriteLine("Dialog cancled");
+				Console.WriteLine("Error opening file");
 			} else
 			{
 				Console.WriteLine($"Dialog directory: {result[0]}");

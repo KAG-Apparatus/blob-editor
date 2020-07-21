@@ -7,11 +7,11 @@ namespace Blob_Editor
 {
     public class KagConfig
     {
-        private Dictionary<string, string[]> keyValuePairs;
+        private Stack<KeyValuePair<string, List<string>>> contents;
 
-        public KagConfig(Dictionary<string, string[]> keyValuePairs)
+        public KagConfig(Stack<KeyValuePair<string, List<string>>> contents)
         {
-            this.keyValuePairs = keyValuePairs;
+            this.contents = contents;
         }
     }
 
@@ -19,26 +19,73 @@ namespace Blob_Editor
     {
         public static KagConfig Parse(string filepath)
         {
-            Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>();
+            Stack<KeyValuePair<string, List<string>>> contents = new Stack<KeyValuePair<string, List<string>>>();
             string pattern = @"(\@*\$*\w+)\ +=\ +(.*)";
-            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             using (StreamReader reader = new StreamReader(filepath))
             {
+                KeyValuePair<string, List<string>> entry;
+
                 string line;
+                int lineNumber = 0;
+
                 while ((line = reader.ReadLine()) != null)
                 {
-                    Match m = r.Match(line);
-                    while (m.Success)
+                    lineNumber++;
+
+                    // Empty line
+                    if (line == "")
                     {
-						string key = m.Groups[1].Captures[0].ToString();
-						string value = m.Groups[2].Captures[0].ToString();
-                        Console.WriteLine("{0} = {1}", key, value);
-						dictionary.Add(key, new string[]{value});
-                        m = m.NextMatch();
+                        entry = new KeyValuePair<string, List<string>>(
+                            "VoidInLine" + lineNumber,
+                            new List<string>(new string[]{""})
+                        );
+                        contents.Push(entry);
+                        continue;
+                    }
+                    
+                    // Comment line
+                    if (line[0] == '#')
+                    {
+                        entry = new KeyValuePair<string, List<string>>(
+                            "CommentInLine" + lineNumber,
+                            new List<string>(new string[]{line})
+                        );
+                        contents.Push(entry);
+                        continue;
+                    }
+
+                    Match match = regex.Match(line);
+                    if (match.Success)
+                    {
+                        string key = match.Groups[1].Captures[0].ToString();
+                        string value = match.Groups[2].Captures[0].ToString();
+                        entry = new KeyValuePair<string, List<string>>(
+                            key,
+                            new List<string>(new string[]{value})
+                        );
+                        contents.Push(entry);
+                        match = match.NextMatch();
+                    }
+                    else
+                    {
+                        entry = contents.Pop();
+                        entry.Value.Add(line);
+                        contents.Push(entry);
                     }
                 }
             }
-            return new KagConfig(dictionary);
+
+            foreach (KeyValuePair<string, List<string>> entry in contents)
+            {
+                Console.WriteLine("{0} =", entry.Key);
+                foreach (string value in entry.Value)
+                {
+                    Console.Write("\t{0}\n", value);
+                }
+            }
+            
+            return new KagConfig(contents);
         }
     }
 }
