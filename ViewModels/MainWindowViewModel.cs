@@ -10,7 +10,7 @@ namespace Blob_Editor.ViewModels
         public string Greeting => "Hello World!";
         public string Status => "Everything ok.";
 
-        public async void OnClickCommand()
+        public async void OnOpenClickCommand()
         {
 			List<FileDialogFilter> filters = new List<FileDialogFilter>();
 			filters.Add( //create filter for cfg files
@@ -42,5 +42,10 @@ namespace Blob_Editor.ViewModels
                 Parser.Parse(result[0]);
 			}
         }
+
+		public void OnExitClickCommand()
+		{
+			Environment.Exit(0);
+		}
     }
 }
