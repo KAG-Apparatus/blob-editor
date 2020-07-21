@@ -42,5 +42,10 @@ namespace Blob_Editor.ViewModels
                 Parser.Parse(result[0]);
 			}
         }
+
+		public void OnExitClickCommand()
+		{
+			Environment.Exit(0);
+		}
     }
 }
