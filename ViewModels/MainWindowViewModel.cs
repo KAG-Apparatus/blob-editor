@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using Blob_Editor;
+
 namespace Blob_Editor.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
