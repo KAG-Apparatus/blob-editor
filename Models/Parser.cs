@@ -12,11 +12,8 @@ namespace Blob_Editor
             using (StreamReader reader = new StreamReader(filepath))
             {
                 string line;
-                int lineNumber = 0;
-
                 while ((line = reader.ReadLine()) != null)
                 {
-                    lineNumber++;
                     LineType lineType = IdentifyLine(line);
                     switch (lineType)
                     {
