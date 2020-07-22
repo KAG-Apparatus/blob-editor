@@ -14,6 +14,9 @@ namespace Blob_Editor.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+			AppConfig config = AppConfig.GenerateFromRaw("{}", this);
+			config.AddControls();
         }
     }
 }

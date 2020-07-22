@@ -47,6 +47,20 @@
 					<Panel Grid.Row="0" Grid.Column="1" Name="boundingBoxArea"></Panel>
 				</Grid>
 			</TabItem>
+			<TabItem Header="Settings" VerticalContentAlignment="Center" Name="Settings_TabItem">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"/>
+						<ColumnDefinition Width="1.5*"/>
+					</Grid.ColumnDefinitions>
+					<Panel Grid.Row="0" Grid.Column="0" Name="ItemsPanel">
+						<Border Padding="4">
+							<StackPanel Orientation="Vertical" Name="ItemsStackPanel"></StackPanel>
+						</Border>
+					</Panel>
+					<Panel Grid.Row="0" Grid.Column="1" Name="ItemsBoundingBoxPanel"></Panel>
+				</Grid>
+			</TabItem>
 		</TabControl>
 		<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
 			<TextBlock Text="{Binding Status}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
