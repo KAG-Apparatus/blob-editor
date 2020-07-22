@@ -78,7 +78,7 @@ namespace Blob_Editor
 
         public Entry(string line)
         {
-            string pattern = @"(\@*\$*\w+)\ +=\ +(.*)";
+            string pattern = @"(\@*\w*\ *\@*\$*\w+)\ +=\ +(.*)";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             Match match = regex.Match(line);
             if (match.Success)

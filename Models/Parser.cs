@@ -35,7 +35,8 @@ namespace Blob_Editor
                                 Entry lastElement = (Entry)contents[contents.Count - 1];
                                 lastElement.Append(line);
                                 contents[contents.Count - 1] = (Element)lastElement;
-                            } else
+                            }
+                            else
                             {
                                 throw new Exception("Invalid CFG file");
                             }
@@ -49,6 +50,8 @@ namespace Blob_Editor
 
         public static LineType IdentifyLine(string line)
         {
+            line = line.Trim();
+
             if (line == "" || line == null)
             {
                 return LineType.EmptyLine;
