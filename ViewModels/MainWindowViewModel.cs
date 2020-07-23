@@ -58,5 +58,10 @@ namespace Blob_Editor.ViewModels
         {
             Environment.Exit(0);
         }
+
+		public void OnClearClickCommand()
+		{
+			this.cfgViewModel.Elements.Clear();
+		}
     }
 }
