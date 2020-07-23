@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="Blob_Editor.Views.CFGView">
+  <DockPanel>
+    <Button DockPanel.Dock="Bottom">Add property</Button>
+    <ItemsControl Items="{Binding Elements}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding Key}"/>
+            <StackPanel Orientation="Vertical">
+              <ItemsControl Items="{Binding Value}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <TextBox Text="{Binding}"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+          </StackPanel>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </DockPanel>
+</UserControl>

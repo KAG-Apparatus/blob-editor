@@ -9,6 +9,12 @@ namespace Blob_Editor.ViewModels
     {
         public string Greeting => "Hello World!";
         public string Status => "Everything ok.";
+        public CFGViewModel cfgViewModel { get; }
+
+        public MainWindowViewModel()
+        {
+            this.cfgViewModel = new CFGViewModel(new List<Element>());
+        }
 
         public async void OnOpenClickCommand()
         {
@@ -36,15 +42,15 @@ namespace Blob_Editor.ViewModels
             if (result == null || result.Length != 1)
             {
                 Console.WriteLine("Error opening file");
+                return;
             }
-            else
+
+            Console.WriteLine($"Dialog directory: {result[0]}");
+            CFG cfg = new CFG(result[0]);
+            foreach (Element element in cfg.Elements)
             {
-                Console.WriteLine($"Dialog directory: {result[0]}");
-                KagConfig kagConfig = Parser.Parse(result[0]);
-                foreach (Element element in kagConfig.Elements)
-                {
-                    Console.WriteLine(element.Print());
-                }
+                Console.WriteLine(element.Print());
+                this.cfgViewModel.Elements.Add(element);
             }
         }
 

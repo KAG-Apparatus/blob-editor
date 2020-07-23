@@ -1,4 +1,4 @@
-<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Blob_Editor.ViewModels;assembly=Blob_Editor" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="Blob_Editor.Views.MainWindow" Icon="/Assets/avalonia-logo.ico" Title="Blob Editor">
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Blob_Editor.ViewModels;assembly=Blob_Editor" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="Blob_Editor.Views.MainWindow" Icon="/Assets/avalonia-logo.ico" Title="Blob Editor" xmlns:views="clr-namespace:Blob_Editor.Views">
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
@@ -28,26 +28,9 @@
 						</StackPanel>
 					</Panel>
 					<Panel Grid.Row="0" Grid.Column="1" Name="propertyArea">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="1*"/>
-								<ColumnDefinition Width="4*"/>
-							</Grid.ColumnDefinitions>
-							<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Name="keysPanel">
-								<TextBlock Text="$sprite_factory" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-								<TextBlock Text="@$sprite_scripts" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-							</StackPanel>
-							<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Name="valuesPanel">
-								<TextBox Text="generic_sprite" AcceptsReturn="True" TextWrapping="Wrap"/>
-								<TextBox Text="SeatsGUI.as;
-								VehicleGUI.as;
-								Wooden.as;
-								FireAnim.as;
-								Bomber.as;
-								BomberCommon.as;
-								HealthBar.as;" AcceptsReturn="True" TextWrapping="Wrap"/>
-							</StackPanel>
-						</Grid>
+						<ScrollViewer>
+							<ContentControl Content="{Binding cfgViewModel}"/>
+						</ScrollViewer>
 					</Panel>
 				</Grid>
 			</TabItem>
