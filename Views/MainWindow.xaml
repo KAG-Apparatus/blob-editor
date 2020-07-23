@@ -27,7 +27,28 @@
 							</Border>
 						</StackPanel>
 					</Panel>
-					<Panel Grid.Row="0" Grid.Column="1" Name="propertyArea"></Panel>
+					<Panel Grid.Row="0" Grid.Column="1" Name="propertyArea">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="1*"/>
+								<ColumnDefinition Width="4*"/>
+							</Grid.ColumnDefinitions>
+							<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Name="keysPanel">
+								<TextBlock Text="$sprite_factory" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+								<TextBlock Text="@$sprite_scripts" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+							</StackPanel>
+							<StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Name="valuesPanel">
+								<TextBox Text="generic_sprite" AcceptsReturn="True" TextWrapping="Wrap"/>
+								<TextBox Text="SeatsGUI.as;
+								VehicleGUI.as;
+								Wooden.as;
+								FireAnim.as;
+								Bomber.as;
+								BomberCommon.as;
+								HealthBar.as;" AcceptsReturn="True" TextWrapping="Wrap"/>
+							</StackPanel>
+						</Grid>
+					</Panel>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Bounding Box" VerticalContentAlignment="Center">
