@@ -16,16 +16,16 @@
 					</Grid.ColumnDefinitions>
 					<Panel Grid.Row="0" Grid.Column="0" Name="propertyButtons">
 						<StackPanel Orientation="Vertical">
-							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+							<Border Padding="4">
 								<Button Command="{Binding OnOpenClickCommand}" Width="60" BorderThickness="2">Open</Button>
 							</Border>
-							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+							<Border Padding="4">
 								<Button Width="60" BorderThickness="2">Save</Button>
 							</Border>
-							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+							<Border Padding="4">
 								<Button Width="60" BorderThickness="2" Command="{Binding OnClearClickCommand}">Clear</Button>
 							</Border>
-							<Border BorderThickness="1" BorderBrush="#646490" Width="62">
+							<Border Padding="4">
 								<Button Command="{Binding OnExitClickCommand}" Width="60" BorderThickness="2">Exit</Button>
 							</Border>
 						</StackPanel>
