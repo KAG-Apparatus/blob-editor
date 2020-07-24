@@ -20,7 +20,7 @@
 								<Button Command="{Binding OnOpenClickCommand}" Width="60" BorderThickness="2">Open</Button>
 							</Border>
 							<Border Padding="4">
-								<Button Width="60" BorderThickness="2">Save</Button>
+								<Button Command="{Binding OnSaveClickCommand}" Width="60" BorderThickness="2">Save</Button>
 							</Border>
 							<Border Padding="4">
 								<Button Width="60" BorderThickness="2" Command="{Binding OnClearClickCommand}">Clear</Button>
@@ -31,9 +31,7 @@
 						</StackPanel>
 					</Panel>
 					<Panel Grid.Row="0" Grid.Column="1" Name="propertyArea">
-						<ScrollViewer>
-							<ContentControl Content="{Binding cfgViewModel}"/>
-						</ScrollViewer>
+						<ContentControl Content="{Binding cfgViewModel}"/>
 					</Panel>
 				</Grid>
 			</TabItem>
