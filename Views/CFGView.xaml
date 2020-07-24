@@ -6,8 +6,8 @@
 				<DataTemplate>
 					<Border Padding="4">
 						<StackPanel Orientation="Horizontal">
-							<TextBox Text="{Binding Key}" Width="400" MaxWidth="99999" Background="#1b1b26"/>
-							<StackPanel Orientation="Vertical">
+							<TextBox IsVisible="{Binding HaveKey}" Text="{Binding Key}" Width="400" MaxWidth="99999" Background="#1b1b26"/>
+							<StackPanel Orientation="Vertical" IsVisible="{Binding HaveValue}">
 								<ItemsControl Items="{Binding Value}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>

@@ -105,8 +105,10 @@ namespace Blob_Editor
     {
         private string value;
 
-        string Key { get => null; set => this.value = value; }
-        List<string> Value { get => new List<string>(new string[] { value }); set => throw new Exception("Can't set value to Comment"); }
+        bool HaveKey { get => true; }
+        string Key { get => this.value; set => this.value = value; }
+        bool HaveValue { get => false; }
+        List<string> Value { get => null; set => throw new Exception("Can't set value to Comment"); }
 
         public Comment(string value)
         {
@@ -121,7 +123,9 @@ namespace Blob_Editor
 
     public class Empty : Element
     {
+        bool HaveKey { get => false; }
         string Key { get => null; set => throw new Exception("Can't set key to Empty"); }
+        bool HaveValue { get => false; }
         List<string> Value { get => null; set => throw new Exception("Can't set value to Empty"); }
 
         public string Print()
@@ -135,7 +139,9 @@ namespace Blob_Editor
         private string key;
         private List<string> values;
 
+        bool HaveKey { get => true; }
         string Key { get => this.key; set => key = value; }
+        bool HaveValue { get => true; }
         List<string> Value { get => values; set => this.values = value; }
 
         public Entry(string key, List<string> values)

@@ -46,6 +46,7 @@ namespace Blob_Editor.ViewModels
             }
 
             Console.WriteLine($"Dialog directory: {result[0]}");
+            this.cfgViewModel.Elements.Clear();
             CFG cfg = new CFG(result[0]);
             foreach (Element element in cfg.Elements)
             {
