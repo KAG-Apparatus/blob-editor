@@ -46,15 +46,19 @@
 					<Panel Grid.Row="0" Grid.Column="0" Name="boundingBoxButtons">
 						<Border Padding="4">
 							<StackPanel Orientation="Vertical">
-								<Button Width="60">Add</Button>
-								<Button Width="60">Delete</Button>
+								<Border Padding="4">
+									<Button Width="60">Add</Button>
+								</Border>
+								<Border Padding="4">
+									<Button Width="60">Delete</Button>
+								</Border>
 							</StackPanel>
 						</Border>
 					</Panel>
 					<Panel Grid.Row="0" Grid.Column="1" Name="boundingBoxArea"></Panel>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Settings" VerticalContentAlignment="Center" Name="Settings_TabItem">
+			<TabItem Header="Settings" VerticalContentAlignment="Center" Name="Settings_TabItem" IsVisible="false">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="100"/>
@@ -62,7 +66,9 @@
 					</Grid.ColumnDefinitions>
 					<Panel Grid.Row="0" Grid.Column="0" Name="ItemsPanel">
 						<Border Padding="4">
-							<StackPanel Orientation="Vertical" Name="ItemsStackPanel"></StackPanel>
+							<StackPanel Orientation="Vertical" Name="ItemsStackPanel">
+								<NumericUpDown Name="Name"></NumericUpDown>
+							</StackPanel>
 						</Border>
 					</Panel>
 					<Panel Grid.Row="0" Grid.Column="1" Name="ItemsBoundingBoxPanel"></Panel>
