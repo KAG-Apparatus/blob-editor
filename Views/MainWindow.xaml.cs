@@ -4,19 +4,16 @@ using Avalonia.Markup.Xaml;
 
 namespace Blob_Editor.Views
 {
-    public class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+	public class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-
-			AppConfig config = AppConfig.GenerateFromRaw("{}", this);
-			config.AddControls();
-        }
-    }
+		private void InitializeComponent()
+		{
+			AvaloniaXamlLoader.Load(this);
+		}
+	}
 }

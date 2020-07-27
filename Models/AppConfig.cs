@@ -4,7 +4,7 @@ using Avalonia.Controls;
 using System.Collections.Generic;
 namespace Blob_Editor
 {
-	struct AppConfig
+	/*struct AppConfig
 	{
 		public Window window;
 		public static AppConfig GenerateFromRaw(string raw, Window window)
@@ -26,5 +26,5 @@ namespace Blob_Editor
 		{
 			TabItem item = window.FindControl<TabItem>("Settings_TabItem"); //not sure what to do from here to add items;
 		}
-	}
+	}*/
 }
