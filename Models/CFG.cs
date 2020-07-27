@@ -98,35 +98,37 @@ namespace Blob_Editor
 
     public interface Element
     {
+        public string Key { get; set; }
+        public List<string> ValueList { get; set; }
         string Print();
     }
 
     public class Comment : Element
     {
-        private string value;
+        private string key;
 
         bool HaveKey { get => true; }
-        string Key { get => this.value; set => this.value = value; }
+        public string Key { get => this.key; set => this.key = value; }
         bool HaveValue { get => false; }
-        List<string> Value { get => null; set => throw new Exception("Can't set value to Comment"); }
+        public List<string> ValueList { get => null; set => throw new Exception("Can't set value to Comment"); }
 
         public Comment(string value)
         {
-            this.value = value;
+            this.key = value;
         }
 
         public string Print()
         {
-            return this.value;
+            return this.key;
         }
     }
 
     public class Empty : Element
     {
         bool HaveKey { get => false; }
-        string Key { get => null; set => throw new Exception("Can't set key to Empty"); }
+        public string Key { get => null; set => throw new Exception("Can't set key to Empty"); }
         bool HaveValue { get => false; }
-        List<string> Value { get => null; set => throw new Exception("Can't set value to Empty"); }
+        public List<string> ValueList { get => null; set => throw new Exception("Can't set value to Empty"); }
 
         public string Print()
         {
@@ -140,9 +142,9 @@ namespace Blob_Editor
         private List<string> values;
 
         bool HaveKey { get => true; }
-        string Key { get => this.key; set => key = value; }
+        public string Key { get => this.key; set => key = value; }
         bool HaveValue { get => true; }
-        List<string> Value { get => values; set => this.values = value; }
+        public List<string> ValueList { get => values; set => this.values = value; }
 
         public Entry(string key, List<string> values)
         {
@@ -152,7 +154,7 @@ namespace Blob_Editor
 
         public Entry(string line)
         {
-            string pattern = @"(\@*\w*\ *\@*\$*\w+)\ +=\ +(.*)";
+            string pattern = @"(\@*\w*\ *\@*\$*\w+)\ *=\ *(.*)";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             Match match = regex.Match(line);
             if (match.Success)
