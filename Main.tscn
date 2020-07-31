@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Default-Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Btn-Open.gd" type="Script" id=2]
+[ext_resource path="res://Btn-Exit.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.219608, 0.219608, 0.278431, 1 )
+
+[node name="Main" type="Node"]
+
+[node name="Gui-Base" type="Panel" parent="."]
+anchor_left = 0.000976563
+anchor_right = 1.00098
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Gui-Base"]
+anchor_right = 0.093
+anchor_bottom = 1.0
+margin_left = 1.22774
+margin_top = -1.22778
+margin_right = 0.995735
+margin_bottom = -1.22778
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Gui-Base/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.227722
+margin_right = -3.0
+margin_bottom = -0.772278
+size_flags_stretch_ratio = 0.0
+theme = ExtResource( 1 )
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn-Open" type="Button" parent="Gui-Base/Panel/VBoxContainer"]
+margin_right = 92.0
+margin_bottom = 14.0
+theme = ExtResource( 1 )
+text = "Open"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="Gui-Base/Panel/VBoxContainer/Btn-Open"]
+margin_right = 259.0
+margin_bottom = 118.0
+
+[node name="Btn-Save" type="Button" parent="Gui-Base/Panel/VBoxContainer"]
+margin_top = 29.0
+margin_right = 92.0
+margin_bottom = 43.0
+theme = ExtResource( 1 )
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn-Clear" type="Button" parent="Gui-Base/Panel/VBoxContainer"]
+margin_top = 58.0
+margin_right = 92.0
+margin_bottom = 72.0
+theme = ExtResource( 1 )
+text = "Clear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn-Exit" type="Button" parent="Gui-Base/Panel/VBoxContainer"]
+margin_top = 87.0
+margin_right = 92.0
+margin_bottom = 101.0
+theme = ExtResource( 1 )
+text = "Exit"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Gui-Base/Panel/VBoxContainer/Btn-Open" to="Gui-Base/Panel/VBoxContainer/Btn-Open" method="_on_BtnOpen_pressed"]
+[connection signal="pressed" from="Gui-Base/Panel/VBoxContainer/Btn-Exit" to="Gui-Base/Panel/VBoxContainer/Btn-Exit" method="_on_BtnExit_pressed"]
