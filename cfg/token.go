@@ -1,4 +1,6 @@
-package token
+package cfg
+
+import "fmt"
 
 const (
 	// Symbols
@@ -16,6 +18,7 @@ const (
 
 	// Delimiters
 	SEMICOLON = ";"
+	NEWLINE   = "\n"
 )
 
 type TokenType string
@@ -23,6 +26,13 @@ type TokenType string
 type Token struct {
 	Type    TokenType
 	Literal string
+}
+
+func (t Token) String() string {
+	if t.Type == NEWLINE {
+		return "{NEWLINE }"
+	}
+	return fmt.Sprintf("{%s %s}", t.Type, t.Literal)
 }
 
 func LookupWord(word string) TokenType {

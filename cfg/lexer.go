@@ -1,17 +1,14 @@
-package lexer
-
-import (
-	"github.com/KAG-Apparatus/blob-editor/token"
-)
+package cfg
 
 type Lexer struct {
+	line         int
 	input        string
 	position     int
 	readPosition int
 	ch           byte
 }
 
-func New(input string) *Lexer {
+func NewLexer(input string) *Lexer {
 	l := &Lexer{
 		input: input,
 	}
@@ -30,38 +27,44 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
-func (l *Lexer) NextToken() (tok token.Token) {
+func (l *Lexer) NextToken() (tok Token) {
 	l.skipWhitespace()
 	switch l.ch {
 	case '=':
-		tok = newToken(token.ASSIGN, l.ch)
+		tok = newToken(ASSIGN, l.ch)
 	case ';':
-		tok = newToken(token.SEMICOLON, l.ch)
+		tok = newToken(SEMICOLON, l.ch)
 	case '$':
-		tok = newToken(token.DOLLAR, l.ch)
+		tok = newToken(DOLLAR, l.ch)
 	case '#':
-		tok = newToken(token.HASH, l.ch)
+		tok = newToken(HASH, l.ch)
 	case '@':
-		tok = newToken(token.AT, l.ch)
+		tok = newToken(AT, l.ch)
+	case '\n':
+		tok = newToken(NEWLINE, l.ch)
+		l.line++
+		for l.peekChar() == '\n' {
+			l.readChar()
+		}
 	case 0:
-		tok = token.Token{Type: token.EOF, Literal: ""}
+		tok = Token{Type: EOF, Literal: ""}
 		return
 	default:
 		if isText(l.ch) {
 			word := l.readWord()
-			wordType := token.LookupWord(word)
-			tok = token.Token{Type: wordType, Literal: word}
+			wordType := LookupWord(word)
+			tok = Token{Type: wordType, Literal: word}
 			return
 		} else {
-			tok = newToken(token.ILLEGAL, l.ch)
+			tok = newToken(ILLEGAL, l.ch)
 		}
 	}
 	l.readChar()
 	return
 }
 
-func newToken(tokentype token.TokenType, ch byte) token.Token {
-	return token.Token{Type: tokentype, Literal: string(ch)}
+func newToken(tokentype TokenType, ch byte) Token {
+	return Token{Type: tokentype, Literal: string(ch)}
 }
 
 func (l *Lexer) readWord() string {
@@ -79,7 +82,7 @@ func isText(ch byte) bool {
 }
 
 func (l *Lexer) skipWhitespace() {
-	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
+	for l.ch == ' ' || l.ch == '\t' || l.ch == '\r' {
 		l.readChar()
 	}
 }
