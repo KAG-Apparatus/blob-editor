@@ -17,3 +17,10 @@ func onDialogDelete(dialog *gtk.Dialog) bool {
 func onMainWindowDestroy() {
 	log.Println("Leaving application. Good bye!")
 }
+
+func onMenu(menuButton *gtk.Button) {
+	obj, err := builder.GetObject("popover_menu_1")
+	errorCheck(err)
+	popoverMenu, err := isPopoverMenu(obj)
+	popoverMenu.Popup()
+}

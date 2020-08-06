@@ -49,6 +49,7 @@ func main() {
 		// to the Builder.
 		signals := map[string]interface{}{
 			"on_main_window_destroy": onMainWindowDestroy,
+			"on_button_menu_clicked": onMenu,
 		}
 		builder.ConnectSignals(signals)
 

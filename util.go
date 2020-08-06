@@ -143,6 +143,13 @@ func isBox(obj glib.IObject) (*gtk.Box, error) {
 	return nil, errors.New("not a *gtk.Box")
 }
 
+func isPopoverMenu(obj glib.IObject) (*gtk.PopoverMenu, error) {
+	if popoverMenu, ok := obj.(*gtk.PopoverMenu); ok {
+		return popoverMenu, nil
+	}
+	return nil, errors.New("not a *gtk.PopoverMenu")
+}
+
 func isCellRenderer(obj glib.IObject) (*gtk.CellRenderer, error) {
 	if cellRenderer, ok := obj.(*gtk.CellRenderer); ok {
 		return cellRenderer, nil
