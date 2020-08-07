@@ -2,54 +2,68 @@ package cfg
 
 import (
 	"bytes"
+	"fmt"
+	"reflect"
 )
 
-type Element interface {
-	String() string
-	Literal() []Token
-}
+//go:generate stringer -type=CFGType
+type CFGType int
+
+const (
+	INT_TYPE CFGType = iota
+	INT_ARRAY_TYPE
+
+	STRING_TYPE
+	STRING_ARRAY_TYPE
+
+	FLOAT_TYPE
+	FLOAT_ARRAY_TYPE
+
+	BOOL_TYPE
+	BOOL_ARRAY_TYPE
+)
 
 type CFGFile struct {
-	Elements []Element
+	Comments    []Comment
+	Assignments []Assignment
 }
 
 func (p *CFGFile) String() string {
 	var out bytes.Buffer
-	for _, s := range p.Elements {
+	for _, s := range p.Assignments {
 		out.WriteString(s.String())
 	}
 	return out.String()
 }
 
 type Assignment struct {
-	LeftHand  []Token
-	RightHand []Token
+	Line       int
+	Type       CFGType
+	Identifier string
+	Value      interface{}
 }
 
 func (a *Assignment) String() string {
-	var out bytes.Buffer
-	for _, t := range a.LeftHand {
-		if t.Type == DOLLAR || t.Type == AT {
-			out.WriteString(t.Literal)
-			continue
-		}
-		out.WriteString(t.Literal + " ")
-	}
-	out.WriteString("= ")
-	for _, t := range a.RightHand {
-		if t.Type == NEWLINE {
-			out.WriteString(t.Literal)
-			continue
-		}
-		out.WriteString(t.Literal + " ")
-	}
-	return out.String()
+	return fmt.Sprintf("%s %s = %v", a.Type, a.Identifier, a.Value)
 }
 
-func (as *Assignment) Literal() []Token {
-	tokens := make([]Token, 0)
-	tokens = append(tokens, as.LeftHand...)
-	tokens = append(tokens, newToken(ASSIGN, '='))
-	tokens = append(tokens, as.RightHand...)
-	return tokens
+func (a *Assignment) Equal(b *Assignment) bool {
+	if a.Line != b.Line || a.Type != b.Type || a.Identifier != b.Identifier {
+		return false
+	}
+
+	if !reflect.DeepEqual(a.Value, b.Value) {
+		return false
+	}
+
+	return true
+}
+
+type Comment struct {
+	Line  int
+	Value string
+}
+
+func (c *Comment) String() string {
+	return c.Value
 }

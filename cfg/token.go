@@ -28,10 +28,15 @@ type Token struct {
 	Literal string
 }
 
-func (t Token) String() string {
-	if t.Type == NEWLINE {
-		return "{NEWLINE }"
+func (t1 Token) Equal(t2 Token) bool {
+	if t1.Literal != t2.Literal || t1.Type != t2.Type {
+		return false
 	}
+
+	return true
+}
+
+func (t Token) String() string {
 	return fmt.Sprintf("{%s %s}", t.Type, t.Literal)
 }
 

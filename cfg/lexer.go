@@ -11,6 +11,7 @@ type Lexer struct {
 func NewLexer(input string) *Lexer {
 	l := &Lexer{
 		input: input,
+		line:  1,
 	}
 	l.readChar()
 	return l
@@ -41,19 +42,16 @@ func (l *Lexer) NextToken() (tok Token) {
 	case '@':
 		tok = newToken(AT, l.ch)
 	case '\n':
-		tok = newToken(NEWLINE, l.ch)
 		l.line++
-		for l.peekChar() == '\n' {
-			l.readChar()
-		}
+		tok = newToken(NEWLINE, l.ch)
 	case 0:
 		tok = Token{Type: EOF, Literal: ""}
 		return
 	default:
 		if isText(l.ch) {
-			word := l.readWord()
-			wordType := LookupWord(word)
-			tok = Token{Type: wordType, Literal: word}
+			text := l.readText()
+			textType := LookupWord(text)
+			tok = Token{Type: textType, Literal: text}
 			return
 		} else {
 			tok = newToken(ILLEGAL, l.ch)
@@ -67,7 +65,7 @@ func newToken(tokentype TokenType, ch byte) Token {
 	return Token{Type: tokentype, Literal: string(ch)}
 }
 
-func (l *Lexer) readWord() string {
+func (l *Lexer) readText() string {
 	position := l.position
 	for isText(l.ch) {
 		l.readChar()
